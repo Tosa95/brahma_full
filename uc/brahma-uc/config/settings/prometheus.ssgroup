@@ -1,0 +1,30 @@
+name: PrometheusSettings
+settings_location: src/settings/prometheus_settings.h
+rest_location: src/webserver/handlers/prometheus_settings.h
+requirements:
+  - stdint.h
+  - ../../lib/time/types.h
+  - config.h
+settings_sets:
+  
+  - name: Prometheus
+    uri: /api/prometheus
+    backend_location: settings.prometheus
+    rest_json_max_size: 1000
+    fields:
+      - name: pushGatewayUrl
+        displayed_name: Push Gateway Url
+        backend_type: char
+        backend_cardinality: 128
+        frontend_type: string
+        default: "http://192.168.1.191:9091"
+        needs_reboot: true
+      - name: instanceName
+        displayed_name: Instance Name
+        backend_type: char
+        backend_cardinality: 32
+        frontend_type: string
+        default_macro: DEFAULT_INSTANCE_NAME
+        needs_reboot: true
+    post_set_instructions:
+      - saveSettings();

@@ -1,0 +1,4 @@
+voc{instance="air-quality-sensor"}
+voc_algorithm_uptime{instance="air-quality-sensor"}
+temperature{instance="air-quality-sensor"}
+humidity{instance="air-quality-sensor"}

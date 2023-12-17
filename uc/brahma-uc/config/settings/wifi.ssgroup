@@ -1,0 +1,95 @@
+name: WiFiSettings
+settings_location: src/settings/wifi_settings.h
+rest_location: src/webserver/handlers/wifi_settings.h
+requirements:
+  - stdint.h
+  - ../../lib/time/types.h
+  - config.h
+settings_sets:
+  
+  - name: AccessPoint
+    uri: /api/wifi/access_point
+    backend_location: settings.wifi.ap
+    rest_json_max_size: 1000
+    fields:
+      - name: ssid
+        displayed_name: SSID
+        backend_type: char
+        backend_cardinality: 32
+        frontend_type: string
+        default: BRAHMA-AP
+        needs_reboot: true
+      - name: password
+        displayed_name: Password
+        backend_type: char
+        backend_cardinality: 32
+        frontend_type: string
+        default: BRAHMA-ESP32
+        needs_reboot: true
+    post_set_instructions:
+      - saveSettings();
+
+  - name: Network
+    uri: /api/wifi/network
+    backend_location: settings.wifi.network
+    rest_json_max_size: 1000
+    fields:
+      - name: ip
+        displayed_name: IP
+        backend_type: char
+        backend_cardinality: 32
+        frontend_type: string
+        default: "192.168.1.182"
+        needs_reboot: true
+      - name: gateway
+        displayed_name: Gateway
+        backend_type: char
+        backend_cardinality: 32
+        frontend_type: string
+        default: "192.168.1.1"
+        needs_reboot: true
+      - name: subnet
+        displayed_name: Subnet
+        backend_type: char
+        backend_cardinality: 32
+        frontend_type: string
+        default: "255.255.255.0"
+        needs_reboot: true
+      - name: dns1
+        displayed_name: Dns1
+        backend_type: char
+        backend_cardinality: 32
+        frontend_type: string
+        default: "192.168.1.1"
+        needs_reboot: true
+      - name: dns2
+        displayed_name: Dns2
+        backend_type: char
+        backend_cardinality: 32
+        frontend_type: string
+        default: "8.8.8.8"
+        needs_reboot: true
+    post_set_instructions:
+      - saveSettings();
+
+  - name: Credentials
+    uri: /api/wifi/credentials
+    backend_location: settings.wifi.credentials
+    rest_json_max_size: 1000
+    fields:
+      - name: ssid
+        displayed_name: SSID
+        backend_type: char
+        backend_cardinality: 32
+        frontend_type: string
+        default_macro: DEFAULT_WIFI_SSID
+        needs_reboot: true
+      - name: password
+        displayed_name: Password
+        backend_type: char
+        backend_cardinality: 32
+        frontend_type: string
+        default_macro: DEFAULT_WIFI_PASS
+        needs_reboot: true
+    post_set_instructions:
+      - saveSettings();

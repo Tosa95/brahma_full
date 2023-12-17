@@ -1,0 +1,48 @@
+name: Thermostat
+settings_location: src/settings/thermostat_settings.h
+rest_location: src/webserver/handlers/thermostat_settings.h
+requirements:
+  - stdint.h
+  - ../../lib/time/types.h
+rest_requirements:
+  - ../../controllers/all_controllers.h
+settings_sets:
+  
+  - name: Thermostat
+    uri: /api/thermostat/settings
+    backend_location: settings.thermostat.settings
+    rest_json_max_size: 1000
+    fields:
+      - name: target
+        displayed_name: Target (°C)
+        backend_type: float
+        frontend_type: float
+        default: 22.0
+      - name: baseTemp
+        displayed_name: Base Temp (°C)
+        backend_type: float
+        frontend_type: float
+        default: 14.0
+      - name: override
+        displayed_name: Override
+        backend_type: bool
+        frontend_type: boolean
+        default: false
+      - name: overrideStart
+        displayed_name: Override Start
+        backend_type: uint64_t
+        frontend_type: int
+        default: 0
+      - name: overrideFor
+        displayed_name: Override For
+        backend_type: uint64_t
+        frontend_type: int
+        default: 3600
+      - name: hysteresisSize
+        displayed_name: Hysteresis Size
+        backend_type: float
+        frontend_type: float
+        default: 1.0
+    post_set_instructions:
+      - saveSettings();
+      - Controllers::updateFromSettings();

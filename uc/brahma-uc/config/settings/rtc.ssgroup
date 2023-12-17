@@ -1,0 +1,28 @@
+name: RTCSettings
+settings_location: src/settings/rtc_settings.h
+rest_location: src/webserver/handlers/rtc_settings.h
+requirements:
+  - stdint.h
+  - ../../lib/time/types.h
+settings_sets:
+  
+  - name: RTC
+    uri: /api/rtc/rtc
+    backend_location: settings.rtc
+    rest_json_max_size: 1000
+    fields:
+      - name: ntpHost
+        displayed_name: NtpHost
+        backend_type: char
+        backend_cardinality: 128
+        frontend_type: string
+        default: "pool.ntp.org"
+        needs_reboot: true
+      - name: utcOffsetHours
+        displayed_name: UTCOffsetHours
+        backend_type: int16_t
+        frontend_type: int
+        default: 1
+        needs_reboot: true
+    post_set_instructions:
+      - saveSettings();

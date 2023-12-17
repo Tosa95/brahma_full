@@ -1,0 +1,21 @@
+name: PersonSensorSettings
+settings_location: src/settings/person_sensor_settings.h
+rest_location: src/webserver/handlers/person_sensor_settings.h
+requirements:
+  - stdint.h
+  - ../../lib/time/types.h
+settings_sets:
+  
+  - name: PersonSensor
+    uri: /api/person_sensor
+    backend_location: settings.personSensor
+    rest_json_max_size: 1000
+    fields:
+      - name: persistence
+        displayed_name: Persistence (minutes)
+        backend_type: uint16_t
+        frontend_type: int
+        default: 30
+        needs_reboot: true
+    post_set_instructions:
+      - saveSettings();

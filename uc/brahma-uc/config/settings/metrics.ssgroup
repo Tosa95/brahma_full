@@ -1,0 +1,27 @@
+name: Metrics
+settings_location: src/settings/metrics_settings.h
+rest_location: src/webserver/handlers/metrics_settings.h
+requirements:
+  - stdint.h
+  - ../../lib/time/types.h
+settings_sets:
+  
+  - name: Metrics
+    uri: /api/metrics/settings
+    backend_location: settings.metrics
+    rest_json_max_size: 1000
+    fields:
+      - name: nSamples
+        displayed_name: Number of samples kept in memory
+        backend_type: int32_t
+        frontend_type: int
+        default: 300
+        needs_reboot: true
+      - name: sampleInterval
+        displayed_name: Sample Interval (s)
+        backend_type: float
+        frontend_type: float
+        default: 60.0
+        needs_reboot: true
+    post_set_instructions:
+      - saveSettings();

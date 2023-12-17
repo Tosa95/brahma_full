@@ -1,0 +1,33 @@
+name: RGBLeds
+settings_location: src/settings/rgb_leds_settings.h
+rest_location: src/webserver/handlers/rgb_leds_settings.h
+requirements:
+  - stdint.h
+  - ../../lib/time/types.h
+settings_sets:
+  
+  - name: RGBLeds
+    uri: /api/rgb_leds/settings
+    backend_location: settings.rgbLeds
+    rest_json_max_size: 1000
+    fields:
+      - name: r
+        displayed_name: R (0-255)
+        backend_type: int32_t
+        frontend_type: int
+        default: 255
+        needs_reboot: false
+      - name: g
+        displayed_name: G (0-255)
+        backend_type: int32_t
+        frontend_type: int
+        default: 255
+        needs_reboot: false
+      - name: b
+        displayed_name: B (0-255)
+        backend_type: int32_t
+        frontend_type: int
+        default: 255
+        needs_reboot: false
+    post_set_instructions:
+      - saveSettings();
